@@ -1,4 +1,4 @@
-package CSVReader;
+package CSV;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSVReaderWithHeaderAutoDetection {
+public class CSVReader {
     public List<String> readCSVFileByHeader(String path, String header) {
         List<String> returnList = new ArrayList<>();
         try {

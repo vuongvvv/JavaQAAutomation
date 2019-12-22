@@ -1,0 +1,13 @@
+TC_0001
+    Documentation    VV Documentation 1
+    [Tags]    Regression    Smoke    E2E
+    Response Correct Code    200    
+    Response Should Contain All Property Values Are String    ABC    DEF
+    Response Should Contain All Property Values Are String    vvv    1
+TC_0002
+    Documentation    VV Documentation 2
+    [Tags]    Regression    Smoke    E2E
+    Response Correct Code    400    
+    Response Should Contain All Property Values Are String    ABC    VVVDEF
+    Response Should Contain All Property Values Are String    vvv2    2
+    Response Should Contain All Property Values Are String    JSON_KEY    JSON_VALUE

@@ -1,5 +1,3 @@
-ID,Name,Designation,Company
-1,Sundar Pichai ♥,CEO,Google
-2,Satya Nadella,CEO,Microsoft
-3,Tim cook,CEO,Apple
-4,Mark Zuckerberg,CEO,Facebook
+ID,TEST_CASE_DOCUMENTATION,TEST_CASE_TAGS,JSON_RESPONSE,RESPONSE_CODE
+TC_0001,VV Documentation 1,Regression Smoke E2E,{"ABC":"DEF";"vvv":1},200
+TC_0002,VV Documentation 2,Regression Smoke E2E,{"ABC":"VVVDEF";"vvv2":2;"JSON_KEY":"JSON_VALUE"},400
