@@ -1,5 +1,6 @@
 package AutomationFramework;
 
+import AutomationFolder.AutomationFolder;
 import AutomationJson.AutomationJson;
 import CSV.CSVReader;
 import CSV.CSVWriter;
@@ -25,7 +26,7 @@ public class TestSuite {
         List<String> returnList = new ArrayList<>();
         returnList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.TEST_CASE_DOCUMENTATION.toString());
         for (int i = 0; i < returnList.size(); i++) {
-            returnList.set(i, spacesFormat + "Documentation" + spacesFormat + returnList.get(i));
+            returnList.set(i, spacesFormat + "[Documentation]" + spacesFormat + returnList.get(i));
         }
         return returnList;
     }
@@ -76,6 +77,22 @@ public class TestSuite {
         return listTestSteps;
     }
 
+    public void createFeatureFolder(String inputFilePath, String parentpath) {
+        AutomationFolder automationFolder = new AutomationFolder();
+        CSVReader csvReader = new CSVReader();
+        List<String> featuresList = new ArrayList<>();
+        List<String> subFeaturesList = new ArrayList<>();
+        featuresList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.FEATURE.toString());
+        subFeaturesList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.SUB_FEATURE.toString());
+        for (int i = 0; i < featuresList.size(); i++) {
+            String fullPathFeature = parentpath.concat("\\" + featuresList.get(i).toLowerCase());
+            String fullPathSubFeature = fullPathFeature.concat("\\" + subFeaturesList.get(i));
+            automationFolder.createFolder(fullPathFeature);
+            automationFolder.createFolder(fullPathSubFeature);
+        }
+
+    }
+
     public void generateTestSuiteFile(String inputFilePath, String outputFilePath) {
         CSVWriter csvWriter = new CSVWriter();
         List<String> testCaseIdList = new ArrayList<>();
@@ -88,7 +105,6 @@ public class TestSuite {
         testCaseDocumentationList = generateTestCaseDocumentation(inputFilePath);
         testCaseTagsList = generateTestCaseTags(inputFilePath);
         testCaseResponseCodeList = generateResponseCode(inputFilePath);
-
 
         for (int i = 0; i < testCaseIdList.size(); i++) {
             List<String> appendMessage = new ArrayList<String>();

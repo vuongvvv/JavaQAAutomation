@@ -11,7 +11,8 @@ import CSV.CSVWriter;
 public class AutomationSupport {
     public static void main(String[] args) throws IOException {
         String filePath = "./sample.csv";
-        String outputFilePath = "./test.csv";
+        String outputFilePath = "C:\\Users\\VVV\\o2o-api-automation\\api\\testcases\\test.csv";
+        String testSuiteParentFilePath = "C:\\Users\\VVV\\o2o-api-automation\\api\\testcases";
 //        CSVReader csvReader = new CSVReader();
 //        List<String> nameList = Arrays.asList();
 //        nameList = csvReader.readCSVFileByHeader("./users-with-header.csv", "Name");
@@ -24,6 +25,7 @@ public class AutomationSupport {
 
 
         TestSuite testSuite = new TestSuite();
-        testSuite.generateTestSuiteFile(filePath, outputFilePath);
+        testSuite.createFeatureFolder(filePath, testSuiteParentFilePath);
+//        testSuite.generateTestSuiteFile(filePath, outputFilePath);
     }
 }
