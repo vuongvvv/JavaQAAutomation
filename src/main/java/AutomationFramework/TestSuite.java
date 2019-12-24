@@ -13,6 +13,8 @@ import java.util.Map;
 public class TestSuite {
     private static final String spacesFormat = "    ";
     private static final String testSuiteTestCase = "*** Test Cases ***";
+    private static final String testSuiteFilePostFix = "_test.robot";
+    private static final String testSuiteFolderOnFramework = "testcases";
 
     public List<String> generateTestCaseId(String inputFilePath) {
         CSVReader csvReader = new CSVReader();
@@ -36,7 +38,7 @@ public class TestSuite {
         List<String> returnList = new ArrayList<>();
         returnList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.TEST_CASE_TAGS.toString());
         for (int i = 0; i < returnList.size(); i++) {
-            String tagsString = returnList.get(i).replace(" ", spacesFormat);
+            String tagsString = returnList.get(i).replace(";", spacesFormat);
             returnList.set(i, spacesFormat + "[Tags]" + spacesFormat + tagsString);
         }
         return returnList;
@@ -77,23 +79,30 @@ public class TestSuite {
         return listTestSteps;
     }
 
-    public void createFeatureFolder(String inputFilePath, String parentpath) {
+    public List<String> createTestSuiteFiles(String inputFilePath, String parentpath) {
         AutomationFolder automationFolder = new AutomationFolder();
         CSVReader csvReader = new CSVReader();
         List<String> featuresList = new ArrayList<>();
         List<String> subFeaturesList = new ArrayList<>();
+        List<String> apiNameList = new ArrayList<>();
+        List<String> createdFiles = new ArrayList<String>();
+
         featuresList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.FEATURE.toString());
         subFeaturesList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.SUB_FEATURE.toString());
+        apiNameList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.API_NAME.toString());
         for (int i = 0; i < featuresList.size(); i++) {
             String fullPathFeature = parentpath.concat("\\" + featuresList.get(i).toLowerCase());
             String fullPathSubFeature = fullPathFeature.concat("\\" + subFeaturesList.get(i));
+            String pathToCreateTestSuite = fullPathSubFeature.concat("\\" + apiNameList.get(i).toLowerCase() + testSuiteFilePostFix);
             automationFolder.createFolder(fullPathFeature);
             automationFolder.createFolder(fullPathSubFeature);
+            automationFolder.createFile(pathToCreateTestSuite);
+            createdFiles.add(pathToCreateTestSuite);
         }
-
+        return createdFiles;
     }
 
-    public void generateTestSuiteFile(String inputFilePath, String outputFilePath) {
+    public void generateTestSuiteFileContent(String inputFilePath, String outputFilePath) {
         CSVWriter csvWriter = new CSVWriter();
         List<String> testCaseIdList = new ArrayList<>();
         List<String> testCaseDocumentationList = new ArrayList<>();
@@ -114,11 +123,19 @@ public class TestSuite {
             appendMessage.add(testCaseResponseCodeList.get(i));
 
             testCaseSteps = generateTestCaseStepsFromJson(inputFilePath, i);
-            System.out.println(testCaseSteps);
             for (String testStep : testCaseSteps) {
                 appendMessage.add(testStep);
             }
             csvWriter.apprendToCsv(outputFilePath, appendMessage);
+        }
+    }
+
+    public void generatingTestSuiteFromInputFile(String inputFilePath, String destinationPath) {
+        List<String> createdFiles = new ArrayList<>();
+        destinationPath = destinationPath.concat("\\" + testSuiteFolderOnFramework);
+        createdFiles = createTestSuiteFiles(inputFilePath, destinationPath);
+        for (String pathToFile : createdFiles) {
+            generateTestSuiteFileContent(inputFilePath, pathToFile);
         }
     }
 }
