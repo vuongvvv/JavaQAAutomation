@@ -28,7 +28,10 @@ public class CSVWriter {
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
             for (String message : appendMessage) {
-                out.println(message);
+                if (message.equals("\n"))
+                    out.print(message);
+                else
+                    out.println(message);
             }
         } catch (Exception e) {
             //exception handling left as an exercise for the reader

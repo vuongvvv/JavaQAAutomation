@@ -91,9 +91,9 @@ public class TestSuite {
         subFeaturesList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.SUB_FEATURE.toString());
         apiNameList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.API_NAME.toString());
         for (int i = 0; i < featuresList.size(); i++) {
-            String fullPathFeature = parentpath.concat("\\" + featuresList.get(i).toLowerCase());
-            String fullPathSubFeature = fullPathFeature.concat("\\" + subFeaturesList.get(i));
-            String pathToCreateTestSuite = fullPathSubFeature.concat("\\" + apiNameList.get(i).toLowerCase() + testSuiteFilePostFix);
+            String fullPathFeature = parentpath.concat(AutomationFrameworkConstants.PATH_DELIMITER + featuresList.get(i).toLowerCase());
+            String fullPathSubFeature = fullPathFeature.concat(AutomationFrameworkConstants.PATH_DELIMITER + subFeaturesList.get(i));
+            String pathToCreateTestSuite = fullPathSubFeature.concat(AutomationFrameworkConstants.PATH_DELIMITER + apiNameList.get(i).toLowerCase() + testSuiteFilePostFix);
             automationFolder.createFolder(fullPathFeature);
             automationFolder.createFolder(fullPathSubFeature);
             automationFolder.createFile(pathToCreateTestSuite);
@@ -117,6 +117,7 @@ public class TestSuite {
 
         for (int i = 0; i < testCaseIdList.size(); i++) {
             List<String> appendMessage = new ArrayList<String>();
+            appendMessage.add(AutomationFrameworkConstants.NEW_LINE);
             appendMessage.add(testCaseIdList.get(i));
             appendMessage.add(testCaseDocumentationList.get(i));
             appendMessage.add(testCaseTagsList.get(i));
@@ -132,7 +133,7 @@ public class TestSuite {
 
     public void generatingTestSuiteFromInputFile(String inputFilePath, String destinationPath) {
         List<String> createdFiles = new ArrayList<>();
-        destinationPath = destinationPath.concat("\\" + testSuiteFolderOnFramework);
+        destinationPath = destinationPath.concat(AutomationFrameworkConstants.PATH_DELIMITER + testSuiteFolderOnFramework);
         createdFiles = createTestSuiteFiles(inputFilePath, destinationPath);
         for (String pathToFile : createdFiles) {
             generateTestSuiteFileContent(inputFilePath, pathToFile);
