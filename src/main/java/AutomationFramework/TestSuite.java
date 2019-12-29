@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TestSuite {
-    private static final String spacesFormat = "    ";
+
     private static final String testSuiteTestCase = "*** Test Cases ***";
     private static final String testSuiteFilePostFix = "_test.robot";
     private static final String testSuiteFolderOnFramework = "testcases";
@@ -28,7 +28,7 @@ public class TestSuite {
         List<String> returnList = new ArrayList<>();
         returnList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.TEST_CASE_DOCUMENTATION.toString());
         for (int i = 0; i < returnList.size(); i++) {
-            returnList.set(i, spacesFormat + "[Documentation]" + spacesFormat + returnList.get(i));
+            returnList.set(i, AutomationFrameworkConstants.spacesFormat + "[Documentation]" + AutomationFrameworkConstants.spacesFormat + returnList.get(i));
         }
         return returnList;
     }
@@ -38,8 +38,8 @@ public class TestSuite {
         List<String> returnList = new ArrayList<>();
         returnList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.TEST_CASE_TAGS.toString());
         for (int i = 0; i < returnList.size(); i++) {
-            String tagsString = returnList.get(i).replace(";", spacesFormat);
-            returnList.set(i, spacesFormat + "[Tags]" + spacesFormat + tagsString);
+            String tagsString = returnList.get(i).replace(";", AutomationFrameworkConstants.spacesFormat);
+            returnList.set(i, AutomationFrameworkConstants.spacesFormat + "[Tags]" + AutomationFrameworkConstants.spacesFormat + tagsString);
         }
         return returnList;
     }
@@ -49,7 +49,7 @@ public class TestSuite {
         List<String> returnList = new ArrayList<>();
         returnList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.JSON_RESPONSE.toString());
         for (int i = 0; i < returnList.size(); i++) {
-            returnList.set(i, spacesFormat + returnList.get(i) + spacesFormat);
+            returnList.set(i, AutomationFrameworkConstants.spacesFormat + returnList.get(i) + AutomationFrameworkConstants.spacesFormat);
         }
         return returnList;
     }
@@ -59,7 +59,7 @@ public class TestSuite {
         List<String> returnList = new ArrayList<>();
         returnList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.RESPONSE_CODE.toString());
         for (int i = 0; i < returnList.size(); i++) {
-            returnList.set(i, spacesFormat + "Response Correct Code" + spacesFormat + returnList.get(i) + spacesFormat);
+            returnList.set(i, AutomationFrameworkConstants.spacesFormat + "Response Correct Code" + AutomationFrameworkConstants.spacesFormat + returnList.get(i) + AutomationFrameworkConstants.spacesFormat);
         }
         return returnList;
     }
