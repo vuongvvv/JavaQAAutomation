@@ -28,7 +28,7 @@ public class AutomationSupport {
         TestSuite testSuite = new TestSuite();
         Keywords keywords = new Keywords();
         testSuite.generatingTestSuiteFromInputFile(filePath, apiParentFilePath);
-//        keywords.generatingKeywordsFileFromInputFile(filePath,apiParentFilePath);
-        testSuite.generateTestSuiteFileContent(filePath, outputFilePath);
+        keywords.generatingKeywordsFileFromInputFile(filePath,apiParentFilePath);
+//        testSuite.generateTestSuiteFileContent(filePath, outputFilePath);
     }
 }
