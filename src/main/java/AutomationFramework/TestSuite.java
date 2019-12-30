@@ -44,6 +44,15 @@ public class TestSuite {
         return returnList;
     }
 
+    public List<String> generateApiNames(String inputFilePath){
+        CSVReader csvReader = new CSVReader();
+        List<String> returnList;
+        returnList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.API_NAME.toString());
+        for (int i = 0; i < returnList.size(); i++) {
+            returnList.set(i, AutomationFrameworkConstants.SPACES_FORMAT + Utils.formatKeywordString(returnList.get(i)) + AutomationFrameworkConstants.SPACES_FORMAT);
+        }
+        return returnList;
+    }
     public List<String> generateVerificationPoints(String inputFilePath) {
         CSVReader csvReader = new CSVReader();
         List<String> returnList;
@@ -107,12 +116,14 @@ public class TestSuite {
         List<String> testCaseIdList;
         List<String> testCaseDocumentationList;
         List<String> testCaseTagsList;
+        List<String> apiNameList;
         List<String> testCaseResponseCodeList;
         List<String> testCaseSteps;
 
         testCaseIdList = generateTestCaseId(inputFilePath);
         testCaseDocumentationList = generateTestCaseDocumentation(inputFilePath);
         testCaseTagsList = generateTestCaseTags(inputFilePath);
+        apiNameList = generateApiNames(inputFilePath);
         testCaseResponseCodeList = generateResponseCode(inputFilePath);
 
         for (int i = 0; i < testCaseIdList.size(); i++) {
@@ -121,6 +132,7 @@ public class TestSuite {
             appendMessage.add(testCaseIdList.get(i));
             appendMessage.add(testCaseDocumentationList.get(i));
             appendMessage.add(testCaseTagsList.get(i));
+            appendMessage.add(apiNameList.get(i));
             appendMessage.add(testCaseResponseCodeList.get(i));
 
             testCaseSteps = generateTestCaseStepsFromJson(inputFilePath, i);

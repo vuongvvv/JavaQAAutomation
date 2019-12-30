@@ -35,9 +35,7 @@ public class Keywords {
         List<String> returnList;
         returnList = csvReader.readCSVFileByHeader(inputFilePath, TestCaseEnum.API_NAME.toString());
         for (int i = 0; i < returnList.size(); i++) {
-            String keyword = returnList.get(i).toLowerCase().replace("_"," ").trim();
-            keyword = WordUtils.capitalizeFully(keyword);
-            returnList.set(i, AutomationFrameworkConstants.SPACES_FORMAT + keyword + AutomationFrameworkConstants.SPACES_FORMAT);
+            returnList.set(i, Utils.formatKeywordString(returnList.get(i)));
         }
         return returnList;
     }
