@@ -1,3 +1,3 @@
 FEATURE,SUB_FEATURE,API_NAME,ID,TEST_CASE_DOCUMENTATION,TEST_CASE_TAGS,JSON_RESPONSE,RESPONSE_CODE
-uaa,user_resource,get_all_users,TC_0001,VV Documentation 1,Regression;Smoke;E2E,{"ABC":"DEF";"vvv":1},200
+uaa,user_resource,get_all_users,TC_0001,VV Documentation 1,Regression;Smoke;E2E,{ "ABC":"DEF";"vvv":1;"vv":{"abc":"def"} },200
 notification,notification_account_register_resource,Get_ALL_notification_type,TC_0002,VV Documentation 2,Regression;Smoke;E2E,{"ABC":"VVVDEF";"vvv2":2;"JSON_KEY":"JSON_VALUE"},400
